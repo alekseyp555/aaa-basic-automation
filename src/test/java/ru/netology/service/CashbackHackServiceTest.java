@@ -1,43 +1,43 @@
 package ru.netology.service;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public class CashbackHackServiceTest {
-
+    // Создаем экземпляр нашего сервиса
     CashbackHackService service = new CashbackHackService();
 
-//    description = "Тестируем остаток при сумме ровно равной границе"
-    @Test()
+    @Test(description = "Тестируем остаток при сумме ровно равной границе")
     public void shouldReturnZeroWhenAmountIsExactlyBoundary() {
-        int expected = 0;
         int actual = service.remain(1000);
+        int expected = 0;
 
-        assertEquals(expected, actual);
+        assertEquals(actual, expected, "Остаток должен быть равен нулю");
     }
-//    description = "Проверяем случай, когда сумма меньше границы"
-    @Test()
+
+    @Test(description = "Проверяем случай, когда сумма меньше границы")
     public void shouldCalculateSmallerThanBoundary() {
-        int expected = 100;
         int actual = service.remain(900); // Нужно доплатить 100 руб., чтобы достичь тысячи
+        int expected = 100;
 
-        assertEquals(expected, actual);
+        assertEquals(actual, expected, "Остаток должен быть равен 100 рублям");
     }
-//    description = "Проверяем случай, когда сумма больше границы"
-    @Test()
+
+    @Test(description = "Проверяем случай, когда сумма больше границы")
     public void shouldCalculateBiggerThanBoundary() {
-        int expected = 800;
         int actual = service.remain(1200); // Нужно доплатить 800 руб., чтобы достигнуть следующей тысячи
+        int expected = 800;
 
-        assertEquals(expected, actual);
+        assertEquals(actual, expected, "Остаток должен быть равен 800 рублям");
     }
-//    description = "Проверяем нулевую сумму"
-    @Test()
-    public void shouldHandleZeroAmount() {
-        int expected = 1000;
-        int actual = service.remain(0); // Если ничего не куплено, нужно добавить целую тысячу
 
-        assertEquals(expected, actual);
+    @Test(description = "Проверяем нулевую сумму")
+    public void shouldHandleZeroAmount() {
+        int actual = service.remain(0); // Если ничего не куплено, нужно добавить целую тысячу
+        int expected = 1000;
+
+        assertEquals(actual, expected, "Остаток должен быть равен 1000 рублям");
     }
 }
+
